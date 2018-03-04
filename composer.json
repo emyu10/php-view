@@ -2,7 +2,7 @@
     "name": "emyu10/php-view",
     "description": "A simple library/class to render views written in PHP.",
     "keywords": ["view","view render"],
-    "homepage": "https://emyu10.github.io/",
+    "homepage": "https://emyu10.github.io/php-view",
     "license": "MIT",
     "authors": [
         {
