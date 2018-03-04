@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>emyu10\PhpView\Renderer documentation</title>
+
+        <style media="screen">
+            body {
+                background: steelblue;
+                font-family: Arial, sans-serif;
+                margin: 0;
+            }
+            .wrapper {
+                max-width: 1024px;
+                margin: 0 auto;
+                background: #fff;
+                padding: 20px;
+            }
+            h2, h4 {
+                color: steelblue;
+            }
+            section {
+                margin-top: 50px;
+                border-bottom: 1px steelblue solid;
+            }
+            section:last-of-type {
+                border: none;
+            }
+            pre {
+                background: lavender;
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <h2>emyu10\PhpView\Renderer</h2>
+            <h4>Documentation</h4>
+
+            <section>
+                <h4>About</h4>
+                <p>
+                    This is a class I created to simplify rendering view files independently of any business logic. This is just a wrapper for a simple <tt>include</tt>. Nothing too impressive, but gets the job done.
+                </p>
+                <p>
+                    Read the <a href="api">API documentation</a>.
+                </p>
+            </section>
+
+            <section>
+                <h4>Basic Usage</h4>
+
+                <pre>
+include_once 'vendor/autoload.php';
+
+use \emyu10\PhpView\Renderer;
+use \emyu10\PhpView\FileNotFoundException;
+
+$renderer = new emyu10\PhpView\Renderer();
+$renderer->setPath('/var/www/html/views');
+$renderer->setFile('table');
+$renderer->setData(['title' => 'My Awesome Webpage']);
+
+try {
+    $renderer->render();
+} catch (FileNotFoundException $e) {
+    echo $e->getMessage();
+}
+                </pre>
+            </section>
+
+            <section>
+                <h4>Using the <tt>initialize()</tt> method</h4>
+                <pre>
+$renderer = new emyu10\PhpView\Renderer();
+
+$renderer->initialize('/var/www/html/views', 'table', ['title' => 'My Awesome Webpage'], false);
+
+try {
+    $renderer->render();
+} catch (FileNotFoundException $e) {
+    echo $e->getMessage();
+}
+                </pre>
+            </section>
+
+            <section>
+                <h4>Return the content as a string</h4>
+                <pre>
+$renderer = new emyu10\PhpView\Renderer();
+
+$renderer->initialize('/var/www/html/views', 'table', ['title' => 'My Awesome Webpage'], true);
+
+try {
+    $theHtml  = $renderer->render(); //returns the content of the file as a string and assigns to $theHtml variable.
+    echo $theHtml;
+} catch (FileNotFoundException $e) {
+    echo $e->getMessage();
+}
+                </pre>
+            </section>
+
+            <section>
+                <h4>Using the <tt>staticRender()</tt> method</h4>
+                <pre>
+try {
+    Renderer::staticRender('/var/www/html/views/', 'profile', ['name' => 'John Wick', 'dob' => '02/03/1978'], false);
+} catch (FileNotFoundException $e) {
+    echo $e->getMessage();
+}
+                </pre>
+            </section>
+        </div>
+    </body>
+</html>
